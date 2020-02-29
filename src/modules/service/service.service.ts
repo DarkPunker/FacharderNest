@@ -2,16 +2,23 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Service } from '../../entities/service.entity';
+import { ServiceNeoService } from '../neo4j/service.neo4j.service';
 
 @Injectable()
 export class ServiceService {
-    constructor(@InjectRepository(Service) private readonly serviceRepository: Repository<Service>) { }
+    constructor(
+        @InjectRepository(Service) private readonly serviceRepository: Repository<Service>,
+        private readonly neoServService: ServiceNeoService
+    ) { }
 
 
 
     async createService(data: Service): Promise<Service> {
         try {
-            return await this.serviceRepository.save(data)
+            const service =  await this.serviceRepository.save(data);
+            if(service)
+                await this.neoServService.createService(service);
+            return service;
         } catch (error) {
             return error;
         }
