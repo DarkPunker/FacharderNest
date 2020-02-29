@@ -2,6 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany
 import { Team } from "./team.entity";
 import { Role } from "./rol.entity";
 import { Sales } from "./sales.entity";
+import { Project } from "./project.entity";
 
 @Entity()
 export class User {
@@ -28,6 +29,8 @@ export class User {
   @JoinColumn({name: 'idRole'})
   roles: Role[]
 
+  @OneToMany(type => Project, pro => pro.user)
+  projects: Project[]
   
 
   @OneToMany(type => Sales, sale => sale.client)
