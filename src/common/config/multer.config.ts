@@ -17,8 +17,8 @@ export const DiskStorage = (destImg: string) => diskStorage({
 })
 
 export const FileFilter = (req, file, callback) => {
-  if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-    return callback(new Error('¡Solo se permiten archivos de imagen!'), false);
+  if (!file.originalname.match(/\.(jpg|jpeg|png|pdf|doc|docx|xlsx|xls)$/)) {
+    return callback(new Error('¡Solo se permiten archivos archivos para documentacion como imagenes, pdfs, words, excel, etc.!'), false);
   }
   callback(null, true);
 }
