@@ -32,9 +32,9 @@ export class ProjectService {
         }
       }
 
-      async deleteProject(param: Project): Promise<boolean>{
+      async deleteProject(param: number): Promise<boolean>{
         try {
-          const deleted =  await this.projectRepository.delete(param.idProject);
+          const deleted =  await this.projectRepository.delete(param);
           if(deleted.raw['affectedRows'] > 0 )
             return true
           else 
