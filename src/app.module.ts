@@ -9,9 +9,9 @@ import { TeamModule } from './modules/team/team.module';
 
 @Module({
   imports: [
-   // NeoModule,  
-    UserModule,
     CommonModule,
+    UserModule,
+    NeoModule,  
     TypeOrmModule.forRootAsync({
     imports: [CommonModule],
     useExisting: TypeOrmConfigService,
