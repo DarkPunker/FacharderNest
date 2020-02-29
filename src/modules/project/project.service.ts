@@ -3,12 +3,14 @@ import { Project } from 'src/entities/project.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Document } from '../../entities/document.entity';
+import { ProjectNeoService } from '../neo4j/project.neo4j.service';
 
 @Injectable()
 export class ProjectService {
   constructor(
     @InjectRepository(Project) private readonly projectRepository: Repository<Project>,
-    @InjectRepository(Document) private readonly documentRepository: Repository<Document>
+    @InjectRepository(Document) private readonly documentRepository: Repository<Document>,
+    private readonly neoProjectService: ProjectNeoService
   ) { }
 
   async addDocumentToProject(data: Document, idProject: number): Promise<Project> {
@@ -17,7 +19,11 @@ export class ProjectService {
       if (project) {
         const document: Document = await this.documentRepository.save({ ...data })
         project.documents = [document];
-        return await this.projectRepository.save(project);
+        const pro = await this.projectRepository.save(project);
+        if(pro){
+          this.neoProjectService.addDocumentToProject(idProject, data.idDocument)
+          return pro;
+        }
       } else {
         return null;
       }
@@ -29,7 +35,10 @@ export class ProjectService {
 
   async createProject(data: Project): Promise<Project> {
     try {
-      return await this.projectRepository.save(data)
+      const project =  await this.projectRepository.save(data);
+      if(project)
+        this.neoProjectService.createProject(project);
+      return project
     } catch (error) {
       return error;
     }
