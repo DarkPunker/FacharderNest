@@ -1,23 +1,20 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany, ManyToMany, JoinTable } from "typeorm";
 
 @Entity()
-export class User {
+export class Project {
   
   @PrimaryGeneratedColumn()
-  idUser: number 
+  idProject: number 
 
   @Column('varchar',{unique: true})
-  username: string;
-
-  @Column('varchar')
-  fristname: string;
-  
-  @Column('varchar')
-  lastname: string;
+  projectname: string;
 
   @Column('text')
-  password: string;
+  description: string;
 
-  @Column('boolean', { default: true})
-  state: boolean;
+  @Column('date')
+  date: string;
+
+  @Column('boolean')
+  state: string;
 }
