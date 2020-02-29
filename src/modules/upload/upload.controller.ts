@@ -6,10 +6,10 @@ export class UploadController {
 
   @Get(':img-path') 
   findImage(@Param('img-path') imagen, @Response() res) { 
-    return res.sendFile (imagen, {raíz: process.cwd()+'/images'}); 
+    return res.sendFile (imagen, {raíz: process.cwd()+'/uploads'}); 
   }
 
-  @Post('upload-image')
+  @Post('upload-file')
   @UseInterceptors(FileInterceptor('file'))
   public async uploadImage(@Response() res, @UploadedFile() file) {
     const response = {
