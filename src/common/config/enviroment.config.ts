@@ -12,5 +12,8 @@ export default () => ({
   upload: {
     DESTINATION_FILES: process.env.DESTINATION_FILES,
     MAX_FILE_SIZE: process.env.MAX_FILE_SIZE,
+  },
+  mongo: {
+    MONGODB_URI: process.env.MONGODB_URI
   }
 });
