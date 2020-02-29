@@ -4,20 +4,26 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from 'src/entities/user.entity';
 import { log } from 'util';
+import { TeamNeoService } from '../neo4j/team.neo4j.service';
 
 @Injectable()
 export class TeamService {
   constructor(
     @InjectRepository(Team) private readonly teamRepository: Repository<Team>,
     @InjectRepository(User) private readonly userRepository: Repository<User>,
+    private readonly neoTeamService: TeamNeoService
   ) { }
 
-  async groupTeamByUsuario(idTeam: number, idUser: number): Promise<Team>{
+  async AddUserToTeam(idTeam: number, idUser: number): Promise<Team>{
     try {
       let team: Team = await this.teamRepository.findOne({where:{idTeam}});
       let user: User = await this.userRepository.findOne({where:{idUser}});
       team.users = [user];
-      return await this.teamRepository.save(team);
+      const result = await this.teamRepository.save(team);
+      if(result){
+        this.neoTeamService.addUserToTeam(idUser, idTeam)
+      }
+      return result
     } catch (error) {
       return error;
     }
@@ -25,7 +31,11 @@ export class TeamService {
 
   async createTeam(data: Team): Promise<Team> {
     try {
-      return await this.teamRepository.save(data)
+      const team = await this.teamRepository.save(data);
+      if(team){
+        await this.neoTeamService.createTeam(team);
+      }
+      return team;
     } catch (error) {
       return error;
     }
