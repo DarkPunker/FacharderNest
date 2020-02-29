@@ -38,10 +38,11 @@ export class UserService {
 
   async createUser(data: User): Promise<User> {
     try {
-      console.log(data)
       const user =  await this.userRepository.save({...data})
-      if(user)
-        await this.userNeoService.createUser(user);
+      if(user){
+        let wanted = await this.userRepository.findOne({where: { idUser: user.idUser }, relations: ["roles"]})
+        await this.userNeoService.createUserAndRole(wanted);
+      }
       return user
     } catch (error) {
       return error;
