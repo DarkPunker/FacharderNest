@@ -68,4 +68,13 @@ export class UserNeoService{
     } as IRelationship;
     await this.relationshipService.createRelationship(rela); 
   }
+
+  public async requestedServicePurchase(idUser: number, idSale: number): Promise<any> {
+    const rela = {
+      nodeA: {id: String(idUser), type: 'User'},
+      nodeB: {id: String(idSale), type: 'Sale'},
+      name: "REQUESTED_A"
+    } as IRelationship;
+    await this.relationshipService.createRelationship(rela); 
+  }
 }
