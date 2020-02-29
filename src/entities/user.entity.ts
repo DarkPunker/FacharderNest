@@ -28,13 +28,7 @@ export class User {
   @JoinColumn({name: 'idRole'})
   roles: Role[]
 
-  @ManyToMany(type => Team)
-  @JoinTable({
-    name: 'user_team',
-    joinColumns: [{name: 'idUser'}],
-    inverseJoinColumns: [{name: 'idTeam'}]
-  })
-  teams: Team[];
+  
 
   @OneToMany(type => Sales, sale => sale.client)
   sale: Sales[]
