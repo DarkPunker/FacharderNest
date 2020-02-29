@@ -1,7 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany, ManyToMany, JoinTable } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, JoinColumn,  ManyToOne, OneToMany } from "typeorm";
+import { Category } from "./category.entity";
+import { InvoiceDetail } from "./invoice_detail.entity";
 
 @Entity()
-export class service {
+export class Service {
   
   @PrimaryGeneratedColumn()
   idService: number 
@@ -18,5 +20,10 @@ export class service {
   @Column('boolean')
   state: string;
 
-  FKidCategory: number;
+  @ManyToOne(type => Category, category => category.service)
+  @JoinColumn({name: 'idCategory'})
+  category: Category[]
+
+  @OneToMany(type => InvoiceDetail, invo => invo.services)
+  invoiceDetail: InvoiceDetail
 }

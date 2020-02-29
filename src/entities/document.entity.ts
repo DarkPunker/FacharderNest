@@ -1,7 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany, ManyToMany, JoinTable } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany, ManyToMany, JoinTable, ManyToOne } from "typeorm";
+import { Project } from "./project.entity";
 
 @Entity()
-export class document {
+export class Document {
   
   @PrimaryGeneratedColumn()
   idDocument: number 
@@ -17,4 +18,8 @@ export class document {
 
   @Column('boolean')
   state: string;
+
+  @ManyToOne(type => Project, pro => pro.documents)
+  @JoinColumn({name: 'idProject'})
+  project: Project
 }

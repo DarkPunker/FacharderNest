@@ -1,4 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany, ManyToMany, JoinTable } from "typeorm";
+import {Document} from './document.entity';
 
 @Entity()
 export class Project {
@@ -17,4 +18,7 @@ export class Project {
 
   @Column('boolean')
   state: string;
+
+  @OneToMany(type => Document, doc => doc.project)
+  documents: Document[]
 }

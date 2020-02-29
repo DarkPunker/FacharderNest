@@ -1,13 +1,20 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany, ManyToMany, JoinTable } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany, ManyToMany, JoinTable, ManyToOne } from "typeorm";
+import { Service } from "./service.entity";
+import { Sales } from "./sales.entity";
 
 @Entity()
 export class InvoiceDetail{
     @PrimaryGeneratedColumn()
     idInvoicedetail: number;
 
-    idService_fk:number;
+    @ManyToOne(type => Service, ser => ser.invoiceDetail)
+    @JoinColumn({name: 'idService'})
+    services: Service[];
 
-    idVenta_fk: number;
+    @ManyToOne(type => Sales, ser => ser.invoiceDetail)
+    @JoinColumn({name: 'idSales'})
+    sales: Sales[];
+
 
     @Column('int')
     price: number;
