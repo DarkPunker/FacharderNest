@@ -1,9 +1,14 @@
 import { Injectable, Inject, BadRequestException } from "@nestjs/common";
 import { Sales } from "../../entities/sales.entity";
+import { RelationshipService } from "./relationship.service";
+import { IRelationship } from "./interfaces/relationship.interface";
 
 @Injectable()
 export class SalesNeoService{
-  constructor(@Inject('Neo4j') private readonly neo4j){}
+  constructor(
+    @Inject('Neo4j') private readonly neo4j,
+    private readonly relationshipService: RelationshipService
+  ){}
 
   public async createSales(sales: Sales): Promise<any> {
     const session = this.neo4j.session();
@@ -24,6 +29,15 @@ export class SalesNeoService{
         .catch((error) =>
         Promise.reject(new BadRequestException(error))
       )
+  }
+
+  public async addServiceToShoppingCart(idSales: number, idService: number): Promise<any> {
+    const rela = {
+      nodeA: { id: String(idSales), type: 'Sale' },
+      nodeB: { id: String(idService), type: 'Service' },
+      name: "CONTAINS_A"
+    } as IRelationship;
+    await this.relationshipService.createRelationship(rela);
   }
 
 }
