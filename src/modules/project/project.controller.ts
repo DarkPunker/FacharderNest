@@ -18,6 +18,14 @@ export class ProjectController {
         res.status(HttpStatus.OK).json(response)
     }
 
+    @Post(':idProject')
+    async addDocumentToProject(@Response() res,@Param('idProject') idProject, @Body() document) {
+        console.log(idProject);
+        
+        const response = await this.projectService.addDocumentToProject(document,idProject);
+        res.status(HttpStatus.OK).json(response)
+    }
+
     @Delete(':idProject')
     async deleteProject(@Response() res, @Param('idProject') idProject) {
         const response = await this.projectService.deleteProject(idProject);
