@@ -7,13 +7,13 @@ export class InvoiceDetail{
     @PrimaryGeneratedColumn()
     idInvoicedetail: number;
 
-    @ManyToOne(type => Service, ser => ser.invoiceDetail)
+    @ManyToOne(type => Service, ser => ser.invoiceDetails)
     @JoinColumn({name: 'idService'})
-    services: Service[];
+    services: Service;
 
-    @ManyToOne(type => Sales, ser => ser.invoiceDetail)
+    @ManyToOne(type => Sales, ser => ser.invoiceDetails)
     @JoinColumn({name: 'idSales'})
-    sales: Sales[];
+    sale: Sales;
 
 
     @Column('int')

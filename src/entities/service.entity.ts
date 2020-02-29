@@ -25,5 +25,5 @@ export class Service {
   category: Category[]
 
   @OneToMany(type => InvoiceDetail, invo => invo.services)
-  invoiceDetail: InvoiceDetail
+  invoiceDetails: InvoiceDetail[]
 }

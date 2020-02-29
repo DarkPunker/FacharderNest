@@ -13,7 +13,7 @@ export class Sales {
   client: User;
 
   @OneToMany(type => InvoiceDetail, invo => invo.services)
-  invoiceDetail: InvoiceDetail
+  invoiceDetails: InvoiceDetail[]
 
   @Column('int')
   value_total: number
