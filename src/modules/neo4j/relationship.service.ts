@@ -10,8 +10,9 @@ export class RelationshipService{
     const session = this.neo4j.session();
     const query = `MATCH 
                       (u: ${rel.nodeA.type} {id:'${rel.nodeA.id}'}), 
-                      (b: ${rel.nodeB} {id:'${rel.nodeB.id}'}) 
+                      (b: ${rel.nodeB.type} {id:'${rel.nodeB.id}'}) 
                   CREATE (u)-[:${rel.name}{date: '${dateNow}'}]->(b)`;
+                  console.log(query)
     return session
       .run(query)
       .then((result) => {
