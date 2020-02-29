@@ -8,5 +8,9 @@ export default () => ({
     DB_PASSWORD: process.env.DB_PASSWORD,
     DB_DATABASE: process.env.DB_DATABASE,
     BD_SYNCHRONIZE: process.env.BD_SYNCHRONIZE
+  },
+  upload: {
+    DESTINATION_FILES: process.env.DESTINATION_FILES,
+    MAX_FILE_SIZE: process.env.MAX_FILE_SIZE,
   }
 });
