@@ -13,7 +13,7 @@ export class ServiceNeoService{
         cod: '${service.cod}',
         name: '${service.name}',
         description: '${service.description}',
-        state: '${service.state}',
+        state: '${service.state}'
       }) return u
     `;
     return session
