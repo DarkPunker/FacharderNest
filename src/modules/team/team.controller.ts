@@ -11,6 +11,12 @@ export class TeamController {
         res.status(HttpStatus.OK).json(response)
     }
 
+    @Post(':idTeam/:idUser')
+    async groupTeamByUsuario(@Response() res, @Param('idTeam') idTeam, @Param('idUser') idUser) {
+        const response = await this.temaService.groupTeamByUsuario(idTeam, idUser);
+        res.status(HttpStatus.OK).json(response)
+    }
+
     @Post()
     async createTeam(@Response() res, @Body() team) {
         const response = await this.temaService.createTeam(team);

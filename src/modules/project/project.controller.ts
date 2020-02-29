@@ -20,8 +20,6 @@ export class ProjectController {
 
     @Post(':idProject')
     async addDocumentToProject(@Response() res,@Param('idProject') idProject, @Body() document) {
-        console.log(idProject);
-        
         const response = await this.projectService.addDocumentToProject(document,idProject);
         res.status(HttpStatus.OK).json(response)
     }
