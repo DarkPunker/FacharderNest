@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Team } from 'src/entities/team.entity';
+import { Team } from '../../entities/team.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -32,9 +32,9 @@ export class TeamService {
         }
       }
 
-      async deleteTeam(param: Team): Promise<boolean>{
+      async deleteTeam(param: number): Promise<boolean>{
         try {
-          const deleted =  await this.teamRepository.delete(param.idTeam);
+          const deleted =  await this.teamRepository.delete(param);
           if(deleted.raw['affectedRows'] > 0 )
             return true
           else 
