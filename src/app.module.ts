@@ -6,6 +6,8 @@ import { UserModule } from './modules/user/user.module';
 import { NeoModule } from './modules/neo4j/neo.module';
 import { ProjectModule } from './modules/project/project.module';
 import { TeamModule } from './modules/team/team.module';
+import { ServiceModule } from './modules/service/service.module';
+import { SalesModule } from './modules/sales/sales.module';
 
 @Module({
   imports: [
@@ -17,7 +19,9 @@ import { TeamModule } from './modules/team/team.module';
     useExisting: TypeOrmConfigService,
   }),
     ProjectModule,
-    TeamModule
+    TeamModule,
+    ServiceModule,
+    SalesModule
   ],
 })
 export class AppModule {}
