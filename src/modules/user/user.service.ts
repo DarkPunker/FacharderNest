@@ -2,10 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { User } from 'src/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UserNeoService } from '../neo4j/user.neo4j.service';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectRepository(User) private readonly userRepository: Repository<User>) { }
+  constructor(
+    private readonly userNeoService: UserNeoService,
+    @InjectRepository(User) private readonly userRepository: Repository<User>) { }
 
   async login(username: string, password: string) {
     try {
@@ -35,7 +38,11 @@ export class UserService {
 
   async createUser(data: User): Promise<User> {
     try {
-      return await this.userRepository.save(data)
+      console.log(data)
+      const user =  await this.userRepository.save({...data})
+      if(user)
+        await this.userNeoService.createUser(user);
+      return user
     } catch (error) {
       return error;
     }
