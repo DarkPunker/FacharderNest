@@ -8,6 +8,7 @@ import { RelationshipService } from "./relationship.service";
 import { ProjectNeoService } from "./project.neo4j.service";
 import { SalesNeoService } from "./sales.neo4j.service";
 import { TeamNeoService } from "./team.neo4j.service";
+import { ServiceNeoService } from "./service.neo4j.service";
 
 const SERVICES = [
   UserNeoService, 
@@ -18,7 +19,8 @@ const SERVICES = [
   ProjectNeoService,
   SalesNeoService,
   TeamNeoService,
-  UserNeoService
+  UserNeoService,
+  ServiceNeoService
 ];
 
 @Module({
