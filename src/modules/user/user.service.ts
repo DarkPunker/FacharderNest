@@ -7,6 +7,16 @@ import { Repository } from 'typeorm';
 export class UserService {
   constructor(@InjectRepository(User) private readonly userRepository: Repository<User>) { }
 
+  async login(username: string, password: string) {
+    try {
+      const user = await this.userRepository.find({where: {username,password}});
+      console.log(user);
+      return user;
+    } catch (error) {
+      return error;
+    }
+  }
+
   async findUser(idUser: number): Promise<User> {
     try {
       return await this.userRepository.findOne(idUser);

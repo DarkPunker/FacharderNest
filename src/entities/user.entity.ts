@@ -10,7 +10,7 @@ export class User {
   username: string;
 
   @Column('varchar')
-  fristname: string;
+  firstname: string;
   
   @Column('varchar')
   lastname: string;
