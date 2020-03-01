@@ -86,4 +86,16 @@ export class ProjectService {
       throw error;
     }
   }
+
+  async deleteDocument(param: number): Promise<boolean> {
+    try {
+      const deleted = await this.documentRepository.delete(param);
+      if (deleted.raw['affectedRows'] > 0)
+        return true
+      else
+        return false
+    } catch (error) {
+      throw error;
+    }
+  }
 }

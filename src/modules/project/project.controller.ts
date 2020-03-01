@@ -39,4 +39,10 @@ export class ProjectController {
         const response = await this.projectService.deleteProject(idProject);
         res.status(HttpStatus.OK).json(response)
     }
+
+    @Delete('deleteDocument/:idProject')
+    async deleteDocument(@Response() res, @Param('idDocument') idDocument) {
+        const response = await this.projectService.deleteDocument(idDocument);
+        res.status(HttpStatus.OK).json(response)
+    }
 }
