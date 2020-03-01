@@ -20,7 +20,8 @@ export class DocumentNeoService{
         .run(query)
         .then((result) => {
         session.close();
-        return result.records.map(record => record.toObject());
+        return result.records.map(record => record.toObject()['u']['properties']);
+
       })
         .catch((error) =>
         Promise.reject(new BadRequestException(error))

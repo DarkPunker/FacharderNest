@@ -2,9 +2,7 @@ import { Injectable, Inject, BadRequestException } from "@nestjs/common";
 import { User } from "../../entities/user.entity";
 import { RelationshipService } from "./relationship.service";
 import { RoleNeoService } from "./role.neo4j.service";
-import { Role } from "../../entities/rol.entity";
 import {IRelationship} from './interfaces/relationship.interface';
-import { userInfo } from "os";
 
 @Injectable()
 export class UserNeoService{
@@ -72,7 +70,7 @@ export class UserNeoService{
   public async requestedServicePurchase(idUser: number, idSale: number): Promise<any> {
     const rela = {
       nodeA: {id: String(idUser), type: 'User'},
-      nodeB: {id: String(idSale), type: 'Sale'},
+      nodeB: {id: String(idSale), type: 'Sales'},
       name: "REQUESTED_A"
     } as IRelationship;
     await this.relationshipService.createRelationship(rela); 

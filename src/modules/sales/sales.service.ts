@@ -19,7 +19,7 @@ export class SalesService {
             data.client = user;
             const sales =  await this.salesRepository.save(data);
             if(sales)
-                await this.neoSalesService.createSales(sales);
+                await this.neoSalesService.createRequestedServiceUser(sales, idUser);
             return sales;
         } catch (error) {
             return error;
