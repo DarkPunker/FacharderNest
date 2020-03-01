@@ -20,8 +20,8 @@ export class InvoiceService {
             let sale: Sales = await this.salesRepository.findOne({ where: { idSales } });
             let service: Service = await this.serviceRepository.findOne({ where: { idService } });
             let invoice = new InvoiceDetail();
-            invoice.services = [service];
-            invoice.sales = [sale];
+            invoice.services = service;
+            invoice.sale = sale;
             invoice.price = price;
             console.log(invoice);
             

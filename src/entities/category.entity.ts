@@ -13,5 +13,5 @@ export class Category {
     description:string;
 
     @OneToMany(type => Service, service => service.category)
-    service: Service;
+    service: Service[];
 }

@@ -22,7 +22,7 @@ export class Service {
 
   @ManyToOne(type => Category, category => category.service)
   @JoinColumn({name: 'idCategory'})
-  category: Category[]
+  category: Category
 
   @OneToMany(type => InvoiceDetail, invo => invo.services)
   invoiceDetails: InvoiceDetail[]
