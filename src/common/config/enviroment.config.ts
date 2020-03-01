@@ -15,5 +15,10 @@ export default () => ({
   },
   mongo: {
     MONGODB_URI: process.env.MONGODB_URI
+  },
+  neo: {
+    NEO4J_URI: process.env.NEO4J_URI,
+    NEO4J_PASSWORD: process.env.NEO4J_PASSWORD,
+    NEO4J_USER: process.env.NEO4J_USER
   }
 });
