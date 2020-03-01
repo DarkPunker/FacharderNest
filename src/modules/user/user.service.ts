@@ -42,8 +42,8 @@ export class UserService {
       if(user){
         let wanted = await this.userRepository.findOne({where: { idUser: user.idUser }, relations: ["roles"]})
         await this.userNeoService.createUserAndRole(wanted);
+        return wanted;
       }
-      return user
     } catch (error) {
       return error;
     }

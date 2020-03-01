@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { Document } from '../../entities/document.entity';
 import { ProjectNeoService } from '../neo4j/project.neo4j.service';
 import { Team } from '../../entities/team.entity';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class ProjectService {
@@ -19,11 +20,12 @@ export class ProjectService {
     try {
       let project: Project = await this.projectRepository.findOne({where:{idProject}});
       if (project) {
+        data.cod = uuidv4()
         const document: Document = await this.documentRepository.save({ ...data })
         project.documents = [document];
         const pro = await this.projectRepository.save(project);
         if(pro){
-          await this.neoProjectService.addDocumentToProject(idProject, data.idDocument)
+          await this.neoProjectService.addDocumentToProject(idProject, document)
           return pro;
         }
       } else {

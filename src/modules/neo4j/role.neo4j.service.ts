@@ -1,5 +1,5 @@
 import { Injectable, Inject, BadRequestException } from "@nestjs/common";
-import { Role } from "../../entities/rol.entity";
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class RoleNeoService{
@@ -9,7 +9,7 @@ export class RoleNeoService{
     const session = this.neo4j.session();
     const query = `
       CREATE (r:Role {
-        id: '${role.idRol}', 
+        id: '${uuidv4()}', 
         name: '${role.name}'
       }) return r
     `;
