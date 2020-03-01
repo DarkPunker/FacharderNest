@@ -11,6 +11,9 @@ export class Team {
   @Column('varchar', { unique: true })
   name: string;
 
+  @Column('text', {nullable: true})
+  description: string;
+  
   @ManyToMany(type => User)
   @JoinTable({
     name: 'user_team',
