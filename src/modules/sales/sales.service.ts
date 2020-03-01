@@ -3,16 +3,20 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Sales } from '../../entities/sales.entity';
 import { SalesNeoService } from '../neo4j/sales.neo4j.service';
+import { User } from 'src/entities/user.entity';
 
 @Injectable()
 export class SalesService {
     constructor(
         @InjectRepository(Sales) private readonly salesRepository: Repository<Sales>,
+        @InjectRepository(User) private readonly userRepository: Repository<User>,
         private readonly neoSalesService: SalesNeoService
         ) { }
 
-    async createSale(data: Sales): Promise<Sales> {
+    async createSale(data: Sales, idUser: number): Promise<Sales> {
         try {
+            let user: User = await this.userRepository.findOne({where:{idUser}});
+            data.client = user;
             const sales =  await this.salesRepository.save(data);
             if(sales)
                 await this.neoSalesService.createSales(sales);

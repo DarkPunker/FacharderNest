@@ -11,9 +11,9 @@ export class SalesController {
         res.status(HttpStatus.OK).json(response)
     }
 
-    @Post()
-    async createSales(@Response() res, @Body() project) {
-        const response = await this.salesService.createSale(project);
+    @Post(':idUser')
+    async createSales(@Response() res, @Body() project, @Param('idUser') idUser) {
+        const response = await this.salesService.createSale(project, idUser);
         res.status(HttpStatus.OK).json(response)
     }
 
