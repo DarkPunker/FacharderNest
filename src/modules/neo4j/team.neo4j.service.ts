@@ -15,7 +15,8 @@ export class TeamNeoService{
     const query = `
       CREATE (t:Team {
         id: '${team.idTeam}', 
-        name: '${team.name}'
+        name: '${team.name}',
+        description: '${team.description}'
       }) return t
     `;
     return session
