@@ -11,6 +11,16 @@ export class ProjectController {
         const response = await this.projectService.getProjects();
         res.status(HttpStatus.OK).json(response)
     }
+    
+    @Get('assign-project-team/:idProject/:idTeam')
+    async assignProjectToTeam(
+        @Response() res, 
+        @Param('idProject') idProject: number, 
+        @Param('idTeam') idTeam: number
+    ) {
+        const response = await this.projectService.assignProjectToTeam(idProject, idTeam);
+        res.status(HttpStatus.OK).json(response)
+    }
 
     @Post()
     async createProject(@Response() res, @Body() project) {
