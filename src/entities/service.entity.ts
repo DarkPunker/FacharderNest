@@ -17,7 +17,7 @@ export class Service {
   @Column('text')
   description: string;
 
-  @Column('boolean')
+  @Column('boolean', {nullable: true})
   state: string;
 
   @ManyToOne(type => Category, category => category.service)
