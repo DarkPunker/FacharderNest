@@ -13,4 +13,5 @@ export class SearchGeneralController {
         const response = await this.searchGeneral.imputData(datainput);
         res.status(HttpStatus.OK).json(response) 
     }
+    
 }

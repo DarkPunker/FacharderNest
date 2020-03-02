@@ -22,7 +22,6 @@ export class ProjectService {
     try {
       let project: Project = await this.projectRepository.findOne({where:{idProject}});
       if (project) {
-        data.cod = uuidv4()
         const document: Document = await this.documentRepository.save({ ...data })
         project.documents = [document];
         const pro = await this.projectRepository.save(project);
