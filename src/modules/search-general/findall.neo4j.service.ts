@@ -85,7 +85,7 @@ export class SearchGeneralNeoService {
       .run(query)
       .then((result) => {
         session.close();
-        return result.records.map(record => record.toObject()['a'])
+        return result.records.map(record => record.toObject());
       })
       .catch((error) =>
         Promise.reject(new BadRequestException(error))
