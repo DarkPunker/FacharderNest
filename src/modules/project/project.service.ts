@@ -1,5 +1,6 @@
+import { Project } from './../../entities/project.entity';
+import { User } from './../../entities/user.entity';
 import { Injectable } from '@nestjs/common';
-import { Project } from 'src/entities/project.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Document } from '../../entities/document.entity';
@@ -13,6 +14,7 @@ export class ProjectService {
     @InjectRepository(Project) private readonly projectRepository: Repository<Project>,
     @InjectRepository(Document) private readonly documentRepository: Repository<Document>,
     @InjectRepository(Team) private readonly teamRepository: Repository<Team>,
+    @InjectRepository(User) private readonly userRepository: Repository<User>,
     private readonly neoProjectService: ProjectNeoService
   ) { }
 
@@ -51,8 +53,10 @@ export class ProjectService {
     }
   }
 
-  async createProject(data: Project): Promise<Project> {
+  async createProject(data: Project, idUser: number): Promise<Project> {
     try {
+      let user: User = await this.userRepository.findOne({where:{idUser}});
+      data.user = user;
       const project =  await this.projectRepository.save(data);
       if(project)
         this.neoProjectService.createProject(project);
@@ -97,6 +101,16 @@ export class ProjectService {
       else
         return false
     } catch (error) {
+      throw error;
+    }
+  }
+
+  async findDocumentByProject(idProject): Promise<any>{
+    try {
+      console.log(idProject);
+      
+    return await this.neoProjectService.findDocumentByProject(idProject);
+    }catch (error){
       throw error;
     }
   }

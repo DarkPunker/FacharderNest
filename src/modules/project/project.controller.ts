@@ -11,6 +11,12 @@ export class ProjectController {
         const response = await this.projectService.getProjects();
         res.status(HttpStatus.OK).json(response)
     }
+
+    @Get('findDocuments/:idProject')
+    async findDocumentByProject(@Response() res,@Param('idProject') idProject) {
+        const response = await this.projectService.findDocumentByProject(idProject);
+        res.status(HttpStatus.OK).json(response)
+    }
     
     @Get('assign-project-team/:idProject/:idTeam')
     async assignProjectToTeam(
@@ -23,8 +29,8 @@ export class ProjectController {
     }
 
     @Post()
-    async createProject(@Response() res, @Body() project) {
-        const response = await this.projectService.createProject(project);
+    async createProject(@Response() res, @Body() project, iduser) {
+        const response = await this.projectService.createProject(project, iduser);
         res.status(HttpStatus.OK).json(response)
     }
 

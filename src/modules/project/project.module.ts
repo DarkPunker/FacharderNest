@@ -1,3 +1,4 @@
+import { User } from './../../entities/user.entity';
 import { Module } from '@nestjs/common';
 import { ProjectController } from './project.controller';
 import { ProjectService } from './project.service';
@@ -9,7 +10,7 @@ import { Team } from '../../entities/team.entity';
 
 
 @Module({
-    imports: [NeoModule, TypeOrmModule.forFeature([Project, Document, Team])],
+    imports: [NeoModule, TypeOrmModule.forFeature([Project, Document, Team, User])],
     controllers: [ProjectController],
     providers: [ProjectService]
 })

@@ -57,4 +57,22 @@ export class ProjectNeoService {
     }
     
   }
+
+/*   MATCH (p:Project)-[r:HAS_A]->(d:Document) RETURN p,r,d */
+  public async findDocumentByProject(idProject): Promise<any> {
+    const session = this.neo4j.session();
+    const query = `MATCH 
+    (a:Project{id:'${idProject}'})-[r:HAS_A]->(d:Document)
+    RETURN d`;
+    console.log(query);
+    return session
+      .run(query)
+      .then((result) => {
+        session.close();
+        return result.records.map(record => record.toObject()['d']['properties'])
+      })
+      .catch((error) =>
+        Promise.reject(new BadRequestException(error))
+      )
+  }
 }
