@@ -21,7 +21,7 @@ export class SearchGeneralNeoService {
 
   public async imputData(dataSearch): Promise<any>{
     let query = "";
-    let con = {};
+    let con = [];
     await Promise.all(
     nameNodo.map(async(element, i) => {
       switch (i) {
@@ -51,12 +51,9 @@ export class SearchGeneralNeoService {
         nodeA: { type: element },
         attrib: query,
       } as FindAll;
-      /* const x = await this.findContains(rela);
-      console.log(x); */
-      
-      Object.assign(con,await this.findContains(rela));
-      console.log(con);
-      
+      let result = await this.findContains(rela);
+      if(result.length > 0)
+        con.push(result)
     })
     )
     return con;
