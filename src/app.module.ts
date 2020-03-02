@@ -10,6 +10,8 @@ import { ServiceModule } from './modules/service/service.module';
 import { SalesModule } from './modules/sales/sales.module';
 import { InvoiceModule } from './modules/invoice/invoice.module';
 
+import { SearchGeneralModule } from './modules/search-general/search-general.module';
+
 @Module({
   imports: [
     CommonModule,
@@ -23,7 +25,9 @@ import { InvoiceModule } from './modules/invoice/invoice.module';
     TeamModule,
     ServiceModule,
     SalesModule,
-    InvoiceModule
+    InvoiceModule,
+    SearchGeneralModule
   ],
+  
 })
 export class AppModule {}

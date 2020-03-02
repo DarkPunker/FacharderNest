@@ -14,13 +14,13 @@ import { MongooseModule } from '@nestjs/mongoose'
       envFilePath: process.cwd()+'/environments/development.env',
       isGlobal: true, 
     }),
-    MongooseModule.forRootAsync({
+    /* MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
         uri: configService.get('MONGODB_URI'),
       }),
       inject: [ConfigService],
-    })
+    }) */
   ],
   providers: [TypeOrmConfigService, Neo4jProvider, MulterConfigService],
   exports: [TypeOrmConfigService, Neo4jProvider, MulterConfigService]
