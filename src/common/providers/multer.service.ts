@@ -8,12 +8,12 @@ export class MulterConfigService implements MulterOptionsFactory {
   constructor(private readonly configService: ConfigService){}
   
   destinationImages():string{
-    return process.cwd() + this.configService.get('DESTINATION_FILES');
+    return process.cwd() + this.configService.get('upload.DESTINATION_FILES');
   }
   
 
   fileZize(): number{
-    return this.configService.get('MAX_FILE_SIZE')
+    return this.configService.get('upload.MAX_FILE_SIZE')
   }
 
   createMulterOptions(): MulterModuleOptions{

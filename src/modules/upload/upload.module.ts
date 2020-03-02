@@ -14,6 +14,6 @@ import { MulterConfigService } from '../../common/providers/multer.service';
     }),
   ],
   controllers: [UploadController],
-  providers: [UploadService]
+  providers: []
 })
 export class UploadModule {}

@@ -1,3 +1,4 @@
+import { UploadModule } from './modules/upload/upload.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmConfigService } from './common/providers/ormconfig.service';
 import { CommonModule } from './common/common.module';
@@ -17,16 +18,17 @@ import { SearchGeneralModule } from './modules/search-general/search-general.mod
     CommonModule,
     UserModule,
     NeoModule,  
-    TypeOrmModule.forRootAsync({
-    imports: [CommonModule],
-    useExisting: TypeOrmConfigService,
-  }),
+    UploadModule,
     ProjectModule,
     TeamModule,
     ServiceModule,
     SalesModule,
     InvoiceModule,
-    SearchGeneralModule
+    SearchGeneralModule,
+    TypeOrmModule.forRootAsync({
+      imports: [CommonModule],
+      useExisting: TypeOrmConfigService,
+    }),
   ],
   
 })
