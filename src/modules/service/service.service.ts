@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Service } from '../../entities/service.entity';
 import { ServiceNeoService } from '../neo4j/service.neo4j.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class ServiceService {
@@ -15,6 +16,7 @@ export class ServiceService {
 
     async createService(data: Service): Promise<Service> {
         try {
+            data.cod = uuidv4();
             const service =  await this.serviceRepository.save(data);
             if(service)
                 await this.neoServService.createService(service);
